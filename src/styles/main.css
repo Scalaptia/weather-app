@@ -1,6 +1,7 @@
 :root {
     --background-color: 43, 51, 81;
     --foreground-color: 56, 66, 103;
+    --text-color: 253, 254, 254;
 
     --sidebar-width: 20rem
 }

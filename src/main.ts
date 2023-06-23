@@ -4,4 +4,4 @@ import pageLoad from './ui/pageLoad';
 
 pageLoad();
 
-(async () => console.log(await weatherAPI.getLocationInfo('ensenada')))()
+(async () => console.log(await weatherAPI.getLocationInfo('ensenada')))();

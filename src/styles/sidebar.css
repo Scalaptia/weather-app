@@ -3,9 +3,11 @@
     height: 100vh;
     background-color: rgba(var(--background-color));
     display: flex;
+    flex-direction: column;
+    gap: 2rem;
 }
 
-.search {
+.searchbar {
     display: flex;
     height: 40px;
     width: 100%;
@@ -13,7 +15,7 @@
     gap: 10px;
 }
 
-.search button {
+.searchbar button {
     border: none;
     outline: none;
     min-width: 40px;
@@ -25,22 +27,24 @@
     transition: 50ms background-color ease-in-out;
 }
 
-.search button svg {
+.searchbar button svg {
     width: 20px;
     padding-bottom: 1px;
+    stroke: rgba(var(--text-color));
 }
 
-.search button:hover {
+.searchbar button:hover {
     background-color: rgba(var(--foreground-color), 0.5);
 }
 
-.search input {
+.searchbar input {
     border: none;
     outline: none;
-    padding: 10px;
-    padding-right: 30px;
+    font-size: 14px;
+    padding: 20px;
     background-color: rgba(var(--foreground-color));
     width: 100%;
     border-radius: 20px;
+    color: rgba(var(--text-color));
 }
 
