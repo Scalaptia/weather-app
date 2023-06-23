@@ -1,7 +1,7 @@
-import weatherAPI from './modules/api';
 import './styles/main.css';
 import pageLoad from './ui/pageLoad';
+import { submitSearch } from './ui/sidebar';
 
 pageLoad();
 
-(async () => console.log(await weatherAPI.getLocationInfo('ensenada')))();
+submitSearch('ensenada');

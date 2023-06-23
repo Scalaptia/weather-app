@@ -1,8 +1,0 @@
-{
-    "extends": ["standard", "prettier", "plugin:@typescript-eslint/recommended"],
-    "parser": "@typescript-eslint/parser",
-    "plugins": ["import", "@typescript-eslint"],
-    "rules": {
-      "import/no-unresolved": "off"
-    }
-}  

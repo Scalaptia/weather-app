@@ -1,23 +1,23 @@
 interface LocationInfo {
     Location: {
-        name: string,
-        region: string,
-        country: string
-    },
+        name: string;
+        region: string;
+        country: string;
+    };
     Temperature: {
-        celsius: number,
-        farenheit: number
-    },
+        celsius: number;
+        farenheit: number;
+    };
     Condition: {
-        text: string,
-        icon: string
-    },
+        text: string;
+        icon: string;
+    };
     Wind: {
-        mph: number,
-        kph: number,
-        direction: string
-    },
-    Humidity: number,
-    Cloud: number,
-    Updated: number
+        mph: number;
+        kph: number;
+        direction: string;
+    };
+    Humidity: number;
+    Cloud: number;
+    Updated: Date;
 }
