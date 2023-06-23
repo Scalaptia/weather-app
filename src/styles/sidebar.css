@@ -1,0 +1,46 @@
+#sidebar {
+    padding: 15px;
+    height: 100vh;
+    background-color: rgba(var(--background-color));
+    display: flex;
+}
+
+.search {
+    display: flex;
+    height: 40px;
+    width: 100%;
+    justify-content: center;
+    gap: 10px;
+}
+
+.search button {
+    border: none;
+    outline: none;
+    min-width: 40px;
+    background-color: rgba(var(--foreground-color));
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 50ms background-color ease-in-out;
+}
+
+.search button svg {
+    width: 20px;
+    padding-bottom: 1px;
+}
+
+.search button:hover {
+    background-color: rgba(var(--foreground-color), 0.5);
+}
+
+.search input {
+    border: none;
+    outline: none;
+    padding: 10px;
+    padding-right: 30px;
+    background-color: rgba(var(--foreground-color));
+    width: 100%;
+    border-radius: 20px;
+}
+

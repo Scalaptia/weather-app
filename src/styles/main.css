@@ -1,0 +1,14 @@
+:root {
+    --background-color: 43, 51, 81;
+    --foreground-color: 56, 66, 103;
+
+    --sidebar-width: 20rem
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: var(--sidebar-width) calc(100vw - var(--sidebar-width));
+}

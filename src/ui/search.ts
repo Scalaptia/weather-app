@@ -10,15 +10,13 @@ const search = (() => {
     const search = document.createElement('form');
     search.classList.add('search')
 
-        const searchInput = document.createElement('input');
-        searchInput.classList.add('search-input');
-        search.appendChild(searchInput);
-
         const searchButton = document.createElement('button');
-        searchButton.classList.add('search-button');
             const searchSVG = createElement(Search);
             searchButton.appendChild(searchSVG);
         search.appendChild(searchButton);
+
+        const searchInput = document.createElement('input');
+        search.appendChild(searchInput);
 
     search.addEventListener('submit', (e) => {
         e.preventDefault();

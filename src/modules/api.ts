@@ -17,6 +17,7 @@ const weatherAPI = (() => {
         }
     }
 
+    // Parse JSON for important information
     async function getLocationInfo(loc: string) {
         const info = await getData(loc);
         const Location = {name: info.location.name, region: info.location.region, country: info.location.country};
@@ -26,7 +27,6 @@ const weatherAPI = (() => {
         const Humidity = info.current.humidity;
         const Cloud = info.current.cloud;
         const Updated = info.current.last_updated_epoch;
-
 
         return {
             Location,
