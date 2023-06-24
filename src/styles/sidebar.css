@@ -58,7 +58,7 @@
     flex-direction: column;
     padding: 3rem;
     padding-top: 0;
-    box-shadow: 0 2px 0px rgba(var(--text-color), 0.1);
+    padding-bottom: 0;
 }
 
 .displaycard > img {
@@ -85,6 +85,8 @@
     padding-top: 1rem;
     display: flex;
     gap: 10px;
+    box-shadow: 0 2px 0px rgba(var(--text-color), 0.1);
+    padding-bottom: 1.5rem;
 }
 
 .time > div:first-child {
@@ -95,4 +97,24 @@
 .time > div:last-child {
     font-size: 1.25rem;
     color: rgba(var(--text-color), 0.5);
+}
+
+.status {
+    padding-top: 1.5rem;
+    padding-bottom: 0.5rem;
+    display: flex;
+    gap: 10px;
+}
+
+.status > svg {
+    fill: rgba(var(--text-color));
+}
+
+.humidity {
+    display: flex;
+    gap: 10px;
+}
+
+.humidity > svg {
+    fill: rgba(var(--text-color));
 }

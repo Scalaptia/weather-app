@@ -1,4 +1,4 @@
-import { Search, createElement } from 'lucide';
+import { Droplets, Cloud, Search, createElement } from 'lucide';
 import weatherAPI from '../modules/api';
 import '../styles/sidebar.css';
 
@@ -49,6 +49,9 @@ const DisplayCard = (() => {
             hour12: false
         } as any;
         Hour.innerText = locationInfo.Updated.toLocaleString('en-US', hourOptions);
+
+        StatusText.innerText = `${locationInfo.Condition.text} skies`;
+        HumidityText.innerText = `${locationInfo.Humidity}% Humidity`;
     }
 
     const Card = document.createElement('div');
@@ -72,6 +75,24 @@ const DisplayCard = (() => {
     const Hour = document.createElement('div');
     Time.appendChild(Hour);
     Card.appendChild(Time);
+
+    const Condition = document.createElement('div');
+    Condition.classList.add('Condition');
+
+    const Status = document.createElement('div');
+    Status.classList.add('status');
+    Status.appendChild(createElement(Cloud));
+    const StatusText = document.createElement('div');
+    Status.appendChild(StatusText);
+    Condition.appendChild(Status);
+
+    const Humidity = document.createElement('div');
+    Humidity.classList.add('humidity');
+    Humidity.appendChild(createElement(Droplets));
+    const HumidityText = document.createElement('div');
+    Humidity.appendChild(HumidityText);
+    Condition.appendChild(Humidity);
+    Card.appendChild(Condition);
 
     return {
         Card,

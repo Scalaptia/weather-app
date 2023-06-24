@@ -23,6 +23,7 @@
     "vite": "^4.3.9"
   },
   "dependencies": {
-    "lucide": "^0.248.0"
+    "lucide": "^0.248.0",
+    "pexels": "^1.4.0"
   }
 }
