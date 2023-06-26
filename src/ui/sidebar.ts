@@ -6,7 +6,7 @@ let locationInfo: LocationInfo;
 
 export async function submitSearch(name: string) {
     locationInfo = await weatherAPI.getLocationInfo(name);
-    Sidebar.UpdateSidebar(`${locationInfo.Location.name}, ${locationInfo.Location.region}`);
+    Sidebar.UpdateSidebar(`${locationInfo.Location.name}, ${locationInfo.Location.region ? locationInfo.Location.region : locationInfo.Location.country}`);
     console.log(locationInfo);
 }
 
@@ -111,6 +111,8 @@ const CityDisplay = (() => {
     async function UpdateImage(location: string) {
         const data = await pexelsAPI.getCityImage(location);
         CityImage.src = data.photos[0].src.medium;
+
+        CityText.innerText = location
     }
 
     const Card = document.createElement('div');
@@ -119,6 +121,10 @@ const CityDisplay = (() => {
     const CityImage = document.createElement('img');
     CityImage.classList.add('cityimage');
     Card.appendChild(CityImage);
+
+    const CityText = document.createElement('div');
+    CityText.classList.add('citytext');
+    Card.appendChild(CityText)
 
     return {
         Card,
