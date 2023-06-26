@@ -1,12 +1,12 @@
 import { Droplets, Cloud, Search, createElement } from 'lucide';
-import weatherAPI from '../modules/api';
+import { pexelsAPI, weatherAPI } from '../modules/api';
 import '../styles/sidebar.css';
 
-let locationInfo: LocationInfo
+let locationInfo: LocationInfo;
 
 export async function submitSearch(name: string) {
     locationInfo = await weatherAPI.getLocationInfo(name);
-    DisplayCard.UpdateDisplayCard();
+    Sidebar.UpdateSidebar(`${locationInfo.Location.name}, ${locationInfo.Location.region}`);
     console.log(locationInfo);
 }
 
@@ -35,20 +35,27 @@ const SearchBar = (() => {
 const DisplayCard = (() => {
     function UpdateDisplayCard() {
         Icon.src = locationInfo.Condition.icon;
-        TemperatureValue.innerText = locationInfo.Temperature.celsius.toString();
-        TemperatureFormat.innerText = `°C`
+        TemperatureValue.innerText =
+            locationInfo.Temperature.celsius.toString();
+        TemperatureFormat.innerText = `°C`;
 
         const dayOptions = {
             weekday: 'long',
         } as any;
-        Day.innerText = locationInfo.Updated.toLocaleString('en-US', dayOptions);
+        Day.innerText = locationInfo.Updated.toLocaleString(
+            'en-US',
+            dayOptions
+        );
 
         const hourOptions = {
             hour: 'numeric',
             minute: 'numeric',
-            hour12: false
+            hour12: false,
         } as any;
-        Hour.innerText = locationInfo.Updated.toLocaleString('en-US', hourOptions);
+        Hour.innerText = locationInfo.Updated.toLocaleString(
+            'en-US',
+            hourOptions
+        );
 
         StatusText.innerText = `${locationInfo.Condition.text} skies`;
         HumidityText.innerText = `${locationInfo.Humidity}% Humidity`;
@@ -96,18 +103,46 @@ const DisplayCard = (() => {
 
     return {
         Card,
-        UpdateDisplayCard
+        UpdateDisplayCard,
+    };
+})();
+
+const CityDisplay = (() => {
+    async function UpdateImage(location: string) {
+        const data = await pexelsAPI.getCityImage(location);
+        CityImage.src = data.photos[0].src.medium;
+    }
+
+    const Card = document.createElement('div');
+    Card.classList.add('citydisplay');
+
+    const CityImage = document.createElement('img');
+    CityImage.classList.add('cityimage');
+    Card.appendChild(CityImage);
+
+    return {
+        Card,
+        UpdateImage
     };
 })();
 
 const Sidebar = (() => {
-    const sidebar = document.createElement('div');
-    sidebar.id = 'sidebar';
+    function UpdateSidebar(location: string) {
+        DisplayCard.UpdateDisplayCard();
+        CityDisplay.UpdateImage(location);
+    }
 
-    sidebar.appendChild(SearchBar);
-    sidebar.appendChild(DisplayCard.Card);
+    const element = document.createElement('div');
+    element.id = 'sidebar';
 
-    return sidebar;
+    element.appendChild(SearchBar);
+    element.appendChild(DisplayCard.Card);
+    element.appendChild(CityDisplay.Card);
+
+    return {
+        element,
+        UpdateSidebar
+    };
 })();
 
 export default Sidebar;

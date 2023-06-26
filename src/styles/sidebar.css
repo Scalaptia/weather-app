@@ -1,5 +1,5 @@
 #sidebar {
-    padding: 15px;
+    padding: 1rem;
     height: 100vh;
     background-color: rgba(var(--background-color));
     display: flex;
@@ -117,4 +117,20 @@
 
 .humidity > svg {
     fill: rgba(var(--text-color));
+}
+
+/* City Display */
+
+.citydisplay {
+    display: flex;
+    border-radius: 20px;
+    overflow: hidden;
+    height: 12rem;
+    overflow: hidden;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.cityimage {
+    width: 100%;
 }

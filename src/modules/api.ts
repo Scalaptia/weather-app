@@ -1,4 +1,4 @@
-const weatherAPI = (() => {
+export const weatherAPI = (() => {
     async function getData(location: string) {
         try {
             const response = await fetch(
@@ -56,4 +56,33 @@ const weatherAPI = (() => {
     };
 })();
 
-export default weatherAPI;
+export const pexelsAPI = (() => {
+    const apiKey = '9vgnbQWPurNZnVB316qkWqSjAj2pC0xu2MbSbakiAJWGmMNdU0Wu8ZIQ';
+
+    async function getCityImage(location: string) {
+        try {
+            const response = await fetch(
+                `https://api.pexels.com/v1/search?query=${location}&orientation=landscape&per_page=1`,
+                {
+                    headers: {
+                        Authorization: apiKey,
+                    },
+                }
+            );
+            const imageData = await response.json();
+
+            if (!response.ok) {
+                throw new Error(
+                    'Request failed with status ' + response.status
+                );
+            }
+            return imageData;
+        } catch (error: any) {
+            throw new Error(error);
+        }
+    }
+
+    return {
+        getCityImage,
+    };
+})();
