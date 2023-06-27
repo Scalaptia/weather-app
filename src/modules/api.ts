@@ -1,8 +1,11 @@
 export const weatherAPI = (() => {
     async function getData(location: string) {
+        const apiKey = '150da6ac985e48f8b6715206232106';
+        const url = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${location}`;
+        
         try {
             const response = await fetch(
-                `https://api.weatherapi.com/v1/current.json?key=150da6ac985e48f8b6715206232106&q=${location}`,
+                url,
                 { mode: 'cors' }
             );
 
@@ -57,18 +60,19 @@ export const weatherAPI = (() => {
 })();
 
 export const pexelsAPI = (() => {
-    const apiKey = '9vgnbQWPurNZnVB316qkWqSjAj2pC0xu2MbSbakiAJWGmMNdU0Wu8ZIQ';
-
+    
     async function getCityImage(location: string) {
+        const apiKey = '9vgnbQWPurNZnVB316qkWqSjAj2pC0xu2MbSbakiAJWGmMNdU0Wu8ZIQ';
+        const url = `https://api.pexels.com/v1/search?query=${location}&orientation=landscape&per_page=1`;
+
+        const request = new Request(url, {
+            headers: {
+                Authorization: apiKey,
+            },
+        })
+
         try {
-            const response = await fetch(
-                `https://api.pexels.com/v1/search?query=${location}&orientation=landscape&per_page=1`,
-                {
-                    headers: {
-                        Authorization: apiKey,
-                    },
-                }
-            );
+            const response = await fetch(request);
             const imageData = await response.json();
 
             if (!response.ok) {
