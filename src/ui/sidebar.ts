@@ -3,10 +3,18 @@ import { pexelsAPI, weatherAPI } from '../modules/api';
 import '../styles/sidebar.css';
 
 let locationInfo: LocationInfo;
+let currentLocationInfo: CurrentInfo;
 
 export async function submitSearch(name: string) {
     locationInfo = await weatherAPI.getLocationInfo(name);
-    Sidebar.UpdateSidebar(`${locationInfo.Location.name}, ${locationInfo.Location.region ? locationInfo.Location.region : locationInfo.Location.country}`);
+    currentLocationInfo = locationInfo.currentLocationInfo;
+    Sidebar.UpdateSidebar(
+        `${currentLocationInfo.Location.name}, ${
+            currentLocationInfo.Location.region
+                ? currentLocationInfo.Location.region
+                : currentLocationInfo.Location.country
+        }`
+    );
     console.log(locationInfo);
 }
 
@@ -34,15 +42,15 @@ const SearchBar = (() => {
 
 const DisplayCard = (() => {
     function UpdateDisplayCard() {
-        Icon.src = locationInfo.Condition.icon;
+        Icon.src = currentLocationInfo.Condition.icon;
         TemperatureValue.innerText =
-            locationInfo.Temperature.celsius.toString();
+            currentLocationInfo.Temperature.celsius.toString();
         TemperatureFormat.innerText = `°C`;
 
         const dayOptions = {
             weekday: 'long',
         } as any;
-        Day.innerText = locationInfo.Updated.toLocaleString(
+        Day.innerText = currentLocationInfo.Updated.toLocaleString(
             'en-US',
             dayOptions
         );
@@ -52,13 +60,13 @@ const DisplayCard = (() => {
             minute: 'numeric',
             hour12: false,
         } as any;
-        Hour.innerText = locationInfo.Updated.toLocaleString(
+        Hour.innerText = currentLocationInfo.Updated.toLocaleString(
             'en-US',
             hourOptions
         );
 
-        StatusText.innerText = `${locationInfo.Condition.text} skies`;
-        HumidityText.innerText = `${locationInfo.Humidity}% Humidity`;
+        StatusText.innerText = `${currentLocationInfo.Condition.text} skies`;
+        HumidityText.innerText = `${currentLocationInfo.Humidity}% Humidity`;
     }
 
     const Card = document.createElement('div');
@@ -112,12 +120,15 @@ const CityDisplay = (() => {
         const data = await pexelsAPI.getCityImage(location);
         CityImage.src = data.photos[0].src.medium;
 
-        CityText.innerText = location
-        CityText.onclick = () => redirectToGoogleMaps(location)
+        CityText.innerText = location;
+        CityText.onclick = () => redirectToGoogleMaps(location);
     }
 
     function redirectToGoogleMaps(location: string) {
-        window.open(`https://www.google.com.mx/maps/place/${location}`, '_blank');
+        window.open(
+            `https://www.google.com.mx/maps/place/${location}`,
+            '_blank'
+        );
     }
 
     const Card = document.createElement('div');
@@ -129,11 +140,11 @@ const CityDisplay = (() => {
 
     const CityText = document.createElement('div');
     CityText.classList.add('citytext');
-    Card.appendChild(CityText)
+    Card.appendChild(CityText);
 
     return {
         Card,
-        UpdateImage
+        UpdateImage,
     };
 })();
 
@@ -152,7 +163,7 @@ const Sidebar = (() => {
 
     return {
         element,
-        UpdateSidebar
+        UpdateSidebar,
     };
 })();
 

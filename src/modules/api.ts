@@ -1,13 +1,10 @@
 export const weatherAPI = (() => {
     async function getData(location: string) {
         const apiKey = '150da6ac985e48f8b6715206232106';
-        const url = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${location}`;
-        
+        const url = `http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${location}&days=7&aqi=no&alerts=no`;
+
         try {
-            const response = await fetch(
-                url,
-                { mode: 'cors' }
-            );
+            const response = await fetch(url, { mode: 'cors' });
 
             if (!response.ok) {
                 throw new Error(
@@ -27,7 +24,7 @@ export const weatherAPI = (() => {
         const info = await getData(loc);
         const date = new Date(info.current.last_updated);
 
-        const locationInfo: LocationInfo = {
+        const currentLocationInfo: CurrentInfo = {
             Location: {
                 name: info.location.name,
                 region: info.location.region,
@@ -51,7 +48,50 @@ export const weatherAPI = (() => {
             Updated: date,
         };
 
-        return locationInfo;
+        function createDayInfo(obj: any): DayInfo {
+            const date = new Date(obj.date);
+
+            return {
+                Date: date,
+                MaxTemperature: {
+                    celsius: obj.day.maxtemp_c,
+                    farenheit: obj.day.maxtemp_f,
+                },
+                MinTemperature: {
+                    celsius: obj.day.mintemp_c,
+                    farenheit: obj.day.mintemp_f,
+                },
+                Condition: {
+                    text: obj.day.condition.text,
+                    icon: obj.day.condition.icon,
+                },
+            };
+        }
+
+        const daysLocationInfo: DayInfo[] = [];
+        info.forecast.forecastday.forEach((day: Object) => {
+            daysLocationInfo.push(createDayInfo(day));
+        });
+        const [
+            day1LocationInfo,
+            day2LocationInfo,
+            day3LocationInfo,
+            day4LocationInfo,
+            day5LocationInfo,
+            day6LocationInfo,
+            day7LocationInfo,
+        ] = daysLocationInfo;
+
+        return {
+            currentLocationInfo,
+            day1LocationInfo,
+            day2LocationInfo,
+            day3LocationInfo,
+            day4LocationInfo,
+            day5LocationInfo,
+            day6LocationInfo,
+            day7LocationInfo,
+        };
     }
 
     return {
@@ -60,16 +100,16 @@ export const weatherAPI = (() => {
 })();
 
 export const pexelsAPI = (() => {
-    
     async function getCityImage(location: string) {
-        const apiKey = '9vgnbQWPurNZnVB316qkWqSjAj2pC0xu2MbSbakiAJWGmMNdU0Wu8ZIQ';
+        const apiKey =
+            '9vgnbQWPurNZnVB316qkWqSjAj2pC0xu2MbSbakiAJWGmMNdU0Wu8ZIQ';
         const url = `https://api.pexels.com/v1/search?query=${location}&orientation=landscape&per_page=1`;
 
         const request = new Request(url, {
             headers: {
                 Authorization: apiKey,
             },
-        })
+        });
 
         try {
             const response = await fetch(request);
