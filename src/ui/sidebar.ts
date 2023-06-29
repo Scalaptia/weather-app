@@ -113,6 +113,11 @@ const CityDisplay = (() => {
         CityImage.src = data.photos[0].src.medium;
 
         CityText.innerText = location
+        CityText.onclick = () => redirectToGoogleMaps(location)
+    }
+
+    function redirectToGoogleMaps(location: string) {
+        window.open(`https://www.google.com.mx/maps/place/${location}`, '_blank');
     }
 
     const Card = document.createElement('div');
