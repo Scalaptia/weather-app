@@ -53,15 +53,38 @@ const WeekDisplay = (() => {
     const element = document.createElement('div');
     element.classList.add('weekdisplay');
 
-    function CreateCard(i: number) {
-        const card = document.createElement('div');
-        element.classList.add(`day${i}`);
+    function CreateCard() {
+        const Card = document.createElement('div');
+        Card.classList.add(`daycard`);
 
-        return card;
+        const DayName = document.createElement('div');
+        DayName.innerText = 'Sun';
+        Card.appendChild(DayName);
+
+        const DayIcon = document.createElement('img');
+        DayIcon.src = 'https://cdn.weatherapi.com/weather/64x64/day/116.png';
+        Card.appendChild(DayIcon);
+
+        const Temperature = document.createElement('div');
+        Temperature.classList.add('minmax-temp');
+
+        const maxTemp = document.createElement('div');
+        maxTemp.innerText = '19°';
+        Temperature.appendChild(maxTemp);
+        const minTemp = document.createElement('div');
+        minTemp.innerText = '7°';
+        Temperature.appendChild(minTemp);
+
+        Card.appendChild(Temperature);
+
+        return Card;
     }
 
+    let weekCards = [];
     for (let i = 1; i <= 7; i++) {
-        element.appendChild(CreateCard(i));
+        let card = CreateCard();
+        weekCards.push(card);
+        element.appendChild(card);
     }
 
     function UpdateWeekDisplay() {}
@@ -78,6 +101,7 @@ const Content = (() => {
     const element = document.createElement('div');
     element.id = 'main';
     element.appendChild(NavBar.element);
+    element.appendChild(WeekDisplay.element);
 
     return {
         element,
