@@ -32,7 +32,7 @@ export const weatherAPI = (() => {
             },
             Temperature: {
                 celsius: info.current.temp_c,
-                farenheit: info.current.temp_f,
+                fahrenheit: info.current.temp_f,
             },
             Condition: {
                 text: info.current.condition.text,
@@ -55,11 +55,11 @@ export const weatherAPI = (() => {
                 Date: date,
                 MaxTemperature: {
                     celsius: obj.day.maxtemp_c,
-                    farenheit: obj.day.maxtemp_f,
+                    fahrenheit: obj.day.maxtemp_f,
                 },
                 MinTemperature: {
                     celsius: obj.day.mintemp_c,
-                    farenheit: obj.day.mintemp_f,
+                    fahrenheit: obj.day.mintemp_f,
                 },
                 Condition: {
                     text: obj.day.condition.text,
@@ -94,8 +94,11 @@ export const weatherAPI = (() => {
         };
     }
 
+    let activeLocationInfo: LocationInfo | undefined;
+
     return {
         getLocationInfo,
+        activeLocationInfo,
     };
 })();
 

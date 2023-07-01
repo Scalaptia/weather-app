@@ -1,19 +1,21 @@
 const preferences = (() => {
     let celsius = {
+        name: 'celsius',
         symbol: 'C',
         value: 0,
     };
 
-    let farenheit = {
+    let fahrenheit = {
+        name: 'fahrenheit',
         symbol: 'F',
         value: 0,
     };
 
-    let preferedTemperature = celsius || farenheit;
+    let preferedTemperature = celsius || fahrenheit;
 
     return {
         celsius,
-        farenheit,
+        fahrenheit,
         preferedTemperature,
     };
 })();

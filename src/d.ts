@@ -6,7 +6,7 @@ interface CurrentInfo {
     };
     Temperature: {
         celsius: number;
-        farenheit: number;
+        fahrenheit: number;
     };
     Condition: {
         text: string;
@@ -26,11 +26,11 @@ interface DayInfo {
     Date: Date;
     MaxTemperature: {
         celsius: number;
-        farenheit: number;
+        fahrenheit: number;
     };
     MinTemperature: {
         celsius: number;
-        farenheit: number;
+        fahrenheit: number;
     };
     Condition: {
         text: string;

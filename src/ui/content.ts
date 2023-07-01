@@ -1,3 +1,4 @@
+import { weatherAPI } from '../modules/api';
 import preferences from '../modules/preferences';
 import '../styles/content.css';
 import Sidebar from './sidebar';
@@ -17,12 +18,12 @@ const NavBar = (() => {
         (preferences.preferedTemperature = preferences.celsius);
     temperatureButtons.appendChild(selectCelsius);
 
-    const selectFarenheit = document.createElement('div');
-    selectFarenheit.classList.add('button');
-    selectFarenheit.innerText = '°F';
-    selectFarenheit.onclick = () =>
-        (preferences.preferedTemperature = preferences.farenheit);
-    temperatureButtons.appendChild(selectFarenheit);
+    const selectFahrenheit = document.createElement('div');
+    selectFahrenheit.classList.add('button');
+    selectFahrenheit.innerText = '°F';
+    selectFahrenheit.onclick = () =>
+        (preferences.preferedTemperature = preferences.fahrenheit);
+    temperatureButtons.appendChild(selectFahrenheit);
 
     temperatureButtons.addEventListener('click', (event) => {
         const selectedButton = event.target as HTMLDivElement;
@@ -38,8 +39,9 @@ const NavBar = (() => {
             button.classList.remove('selected');
         });
 
-        Sidebar.UpdateSidebar();
         element.classList.add('selected');
+        Sidebar.UpdateSidebar();
+        WeekDisplay.UpdateWeekDisplay();
     }
 
     element.appendChild(temperatureButtons);
@@ -58,36 +60,67 @@ const WeekDisplay = (() => {
         Card.classList.add(`daycard`);
 
         const DayName = document.createElement('div');
-        DayName.innerText = 'Sun';
         Card.appendChild(DayName);
 
         const DayIcon = document.createElement('img');
-        DayIcon.src = 'https://cdn.weatherapi.com/weather/64x64/day/116.png';
         Card.appendChild(DayIcon);
 
         const Temperature = document.createElement('div');
         Temperature.classList.add('minmax-temp');
-
         const maxTemp = document.createElement('div');
-        maxTemp.innerText = '19°';
         Temperature.appendChild(maxTemp);
         const minTemp = document.createElement('div');
-        minTemp.innerText = '7°';
         Temperature.appendChild(minTemp);
-
         Card.appendChild(Temperature);
 
         return Card;
     }
 
-    let weekCards = [];
+    let weekCards: HTMLElement[] = [];
     for (let i = 1; i <= 7; i++) {
         let card = CreateCard();
         weekCards.push(card);
         element.appendChild(card);
     }
 
-    function UpdateWeekDisplay() {}
+    function UpdateWeekDisplay() {
+        const info = weatherAPI.activeLocationInfo;
+        for (let i = 0; i <= 6; i++) {
+            let card = weekCards[i];
+            let propertyName = `day${i + 1}LocationInfo` as keyof LocationInfo;
+            let dayInfo = info![propertyName] as DayInfo;
+
+            const DayName = card.children[0] as HTMLDivElement;
+            const DayIcon = card.children[1] as HTMLImageElement;
+            const Temperature = card.children[2] as HTMLDivElement;
+            const maxTemp = Temperature.children[0] as HTMLDivElement;
+            const minTemp = Temperature.children[1] as HTMLDivElement;
+
+            DayName.innerText = dayInfo.Date.toLocaleString('en-US', {
+                weekday: 'short',
+            });
+
+            DayIcon.src = dayInfo.Condition.icon;
+
+            let maxvalue: number =
+                dayInfo.MaxTemperature[
+                    `${preferences.preferedTemperature.name}` as
+                        | 'celsius'
+                        | 'fahrenheit'
+                ];
+            `MaxTemperature.${preferences.preferedTemperature.name}` as keyof DayInfo;
+            maxTemp.innerText = `${maxvalue}°`;
+
+            let minvalue: number =
+                dayInfo.MinTemperature[
+                    `${preferences.preferedTemperature.name}` as
+                        | 'celsius'
+                        | 'fahrenheit'
+                ];
+            `MinTemperature.${preferences.preferedTemperature.name}` as keyof DayInfo;
+            minTemp.innerText = `${minvalue}°`;
+        }
+    }
 
     return {
         element,

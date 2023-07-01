@@ -8,12 +8,13 @@ let locationInfo: LocationInfo;
 let currentLocationInfo: CurrentInfo;
 
 export async function submitSearch(name: string) {
-    locationInfo = await weatherAPI.getLocationInfo(name);
-
+    weatherAPI.activeLocationInfo = await weatherAPI.getLocationInfo(name);
+    locationInfo = weatherAPI.activeLocationInfo;
     currentLocationInfo = locationInfo.currentLocationInfo;
 
-    UpdatePreferenceInfo(currentLocationInfo);
+    UpdatePreferenceInfo();
     content.WeekDisplay.UpdateWeekDisplay();
+
     Sidebar.UpdateSidebar(
         `${currentLocationInfo.Location.name}, ${
             currentLocationInfo.Location.region
@@ -24,9 +25,9 @@ export async function submitSearch(name: string) {
     console.log(locationInfo);
 }
 
-function UpdatePreferenceInfo(info: CurrentInfo) {
-    preferences.celsius.value = info.Temperature.celsius;
-    preferences.farenheit.value = info.Temperature.farenheit;
+function UpdatePreferenceInfo() {
+    preferences.celsius.value = currentLocationInfo.Temperature.celsius;
+    preferences.fahrenheit.value = currentLocationInfo.Temperature.fahrenheit;
 }
 
 const SearchBar = (() => {
