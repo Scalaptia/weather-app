@@ -1,13 +1,19 @@
 import { Droplets, Cloud, Search, createElement } from 'lucide';
 import { pexelsAPI, weatherAPI } from '../modules/api';
 import '../styles/sidebar.css';
+import preferences from '../modules/preferences';
+import content from './content';
 
 let locationInfo: LocationInfo;
 let currentLocationInfo: CurrentInfo;
 
 export async function submitSearch(name: string) {
     locationInfo = await weatherAPI.getLocationInfo(name);
+
     currentLocationInfo = locationInfo.currentLocationInfo;
+
+    UpdatePreferenceInfo(currentLocationInfo);
+    content.WeekDisplay.UpdateWeekDisplay();
     Sidebar.UpdateSidebar(
         `${currentLocationInfo.Location.name}, ${
             currentLocationInfo.Location.region
@@ -16,6 +22,11 @@ export async function submitSearch(name: string) {
         }`
     );
     console.log(locationInfo);
+}
+
+function UpdatePreferenceInfo(info: CurrentInfo) {
+    preferences.celsius.value = info.Temperature.celsius;
+    preferences.farenheit.value = info.Temperature.farenheit;
 }
 
 const SearchBar = (() => {
@@ -44,8 +55,8 @@ const DisplayCard = (() => {
     function UpdateDisplayCard() {
         Icon.src = currentLocationInfo.Condition.icon;
         TemperatureValue.innerText =
-            currentLocationInfo.Temperature.celsius.toString();
-        TemperatureFormat.innerText = `°C`;
+            preferences.preferedTemperature.value.toString();
+        TemperatureFormat.innerText = `°${preferences.preferedTemperature.symbol}`;
 
         const dayOptions = {
             weekday: 'long',
@@ -119,7 +130,6 @@ const CityDisplay = (() => {
     async function UpdateImage(location: string) {
         const data = await pexelsAPI.getCityImage(location);
         CityImage.src = data.photos[0].src.medium;
-
         CityText.innerText = location;
         CityText.onclick = () => redirectToGoogleMaps(location);
     }
@@ -149,9 +159,9 @@ const CityDisplay = (() => {
 })();
 
 const Sidebar = (() => {
-    function UpdateSidebar(location: string) {
+    function UpdateSidebar(location?: string) {
         DisplayCard.UpdateDisplayCard();
-        CityDisplay.UpdateImage(location);
+        if (location) CityDisplay.UpdateImage(location);
     }
 
     const element = document.createElement('div');

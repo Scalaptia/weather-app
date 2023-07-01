@@ -12,6 +12,7 @@
     height: 40px;
 }
 
+/* Temperature Buttons */
 .navbar > .temp-buttons {
     display: flex;
     gap: 10px;
@@ -36,6 +37,6 @@
     background-color: rgba(var(--background-color), 0.8);
 }
 
-.button .selected {
+.temp-buttons > .button.selected {
     background-color: rgba(var(--background-color), 1);
 }

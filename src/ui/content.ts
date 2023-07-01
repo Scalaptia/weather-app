@@ -1,4 +1,6 @@
-import '../styles/content.css'
+import preferences from '../modules/preferences';
+import '../styles/content.css';
+import Sidebar from './sidebar';
 
 const NavBar = (() => {
     const element = document.createElement('div');
@@ -7,14 +9,38 @@ const NavBar = (() => {
     const temperatureButtons = document.createElement('div');
     temperatureButtons.classList.add('temp-buttons');
 
-    const selectCelsius = document.createElement('div')
-    selectCelsius.classList.add('button')
-    selectCelsius.innerText = '°C'
-    temperatureButtons.appendChild(selectCelsius)
-    const selectFarenheit = document.createElement('div')
-    selectFarenheit.classList.add('button')
-    selectFarenheit.innerText = '°F'
-    temperatureButtons.appendChild(selectFarenheit)
+    const selectCelsius = document.createElement('div');
+    selectCelsius.classList.add('button');
+    selectCelsius.classList.add('selected'); // Set as default
+    selectCelsius.innerText = '°C';
+    selectCelsius.onclick = () =>
+        (preferences.preferedTemperature = preferences.celsius);
+    temperatureButtons.appendChild(selectCelsius);
+
+    const selectFarenheit = document.createElement('div');
+    selectFarenheit.classList.add('button');
+    selectFarenheit.innerText = '°F';
+    selectFarenheit.onclick = () =>
+        (preferences.preferedTemperature = preferences.farenheit);
+    temperatureButtons.appendChild(selectFarenheit);
+
+    temperatureButtons.addEventListener('click', (event) => {
+        const selectedButton = event.target as HTMLDivElement;
+        toggleSelectedTemperature(selectedButton);
+    });
+
+    function toggleSelectedTemperature(element: HTMLDivElement) {
+        const buttons = Array.from(
+            temperatureButtons.children
+        ) as HTMLDivElement[];
+
+        buttons.forEach((button) => {
+            button.classList.remove('selected');
+        });
+
+        Sidebar.UpdateSidebar();
+        element.classList.add('selected');
+    }
 
     element.appendChild(temperatureButtons);
 
@@ -23,8 +49,31 @@ const NavBar = (() => {
     };
 })();
 
+const WeekDisplay = (() => {
+    const element = document.createElement('div');
+    element.classList.add('weekdisplay');
+
+    function CreateCard(i: number) {
+        const card = document.createElement('div');
+        element.classList.add(`day${i}`);
+
+        return card;
+    }
+
+    for (let i = 1; i <= 7; i++) {
+        element.appendChild(CreateCard(i));
+    }
+
+    function UpdateWeekDisplay() {}
+
+    return {
+        element,
+        UpdateWeekDisplay,
+    };
+})();
+
 const Content = (() => {
-    function UpdateContent(location: string) {}
+    function UpdateContent() {}
 
     const element = document.createElement('div');
     element.id = 'main';
@@ -36,4 +85,4 @@ const Content = (() => {
     };
 })();
 
-export default Content;
+export default { Content, WeekDisplay };
