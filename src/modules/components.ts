@@ -1,6 +1,6 @@
 import '../styles/components.css';
 
-const ProgressBar = (maxValue: number) => {
+const ProgressBar = (maxValue: number, symbol?: string) => {
     let currentValue = 0;
 
     const element = document.createElement('div');
@@ -31,6 +31,7 @@ const ProgressBar = (maxValue: number) => {
 
         currentValue = val;
         value.innerText = val.toString();
+        if (symbol) value.innerText += symbol;
         updateProgressBar();
     }
 

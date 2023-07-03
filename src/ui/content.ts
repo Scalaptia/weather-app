@@ -175,18 +175,21 @@ const TodayDisplay = (() => {
     }
 
     Cards[0].children[0].innerHTML = 'UV Index';
-    const progressBar = ProgressBar(11);
-    Cards[0].children[1].appendChild(progressBar.element);
+    const UVProgressBar = ProgressBar(11);
+    Cards[0].children[1].appendChild(UVProgressBar.element);
 
     Cards[1].children[0].innerHTML = 'Wind Status';
 
-    Cards[2].children[0].innerHTML = 'Humidity';
+    Cards[2].children[0].innerHTML = 'Cloud';
+    const CloudProgressBar = ProgressBar(100, '%');
+    Cards[2].children[1].appendChild(CloudProgressBar.element);
 
     Cards[3].children[0].innerHTML = 'Visibility';
 
     function UpdateTodayDisplay() {
         const info = weatherAPI.activeLocationInfo;
-        progressBar.setValue(info!.day2LocationInfo.UV!);
+        UVProgressBar.setValue(info!.day2LocationInfo.UV!);
+        CloudProgressBar.setValue(info!.currentLocationInfo.Cloud);
     }
 
     return {
