@@ -102,7 +102,7 @@
 /* Today Display */
 .today-display {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
     width: clamp(100%, 100%, 100rem);
     padding-bottom: 3rem;
@@ -112,14 +112,28 @@
 .today-display > .card {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     min-height: 130px;
-    min-width: 231px;
+    min-width: 353px;
     width: 100%;
     background-color: rgba(var(--background-color), 0.5);
     border-radius: 10px;
     padding-top: 15px;
     padding-bottom: 15px;
     overflow: hidden;
+}
+
+/* Cards */
+.card-title {
+    width: 100%;
+    padding-left: 3rem;
+    padding-bottom: 1rem;
+    color: rgba(var(--text-color), 0.9);
+}
+
+/* UV Index */
+sl-progress-ring {
+    --track-width: 6px;
+    --indicator-width: 12px;
+    --indicator-color: #5297dc;
 }

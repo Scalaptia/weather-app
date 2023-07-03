@@ -1,5 +1,4 @@
 import { weatherAPI } from '../modules/api';
-import { ProgressBar } from '../modules/components';
 import preferences from '../modules/preferences';
 import '../styles/content.css';
 import Sidebar from './sidebar';
@@ -157,6 +156,7 @@ const TodayDisplay = (() => {
         Card.classList.add('card');
 
         const Title = document.createElement('div');
+        Title.className = 'card-title';
         Card.appendChild(Title);
 
         const Item = document.createElement('div');
@@ -167,15 +167,21 @@ const TodayDisplay = (() => {
     }
 
     let Cards: HTMLElement[] = [];
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 4; i++) {
         let card = CreateCard();
         Cards.push(card);
         element.appendChild(card);
     }
 
-    const progressBar = ProgressBar();
-    progressBar.setProgress(10);
-    Cards[0].children[1].appendChild(progressBar.element);
+    Cards[0].children[0].innerHTML = 'UV Index';
+    // const progressBar =
+    // Cards[0].children[1].appendChild(progressBar);
+
+    Cards[1].children[0].innerHTML = 'Wind Status';
+
+    Cards[2].children[0].innerHTML = 'Humidity';
+
+    Cards[3].children[0].innerHTML = 'Visibility';
 
     return {
         element,
