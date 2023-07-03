@@ -1,4 +1,5 @@
 import { weatherAPI } from '../modules/api';
+import { ProgressBar } from '../modules/components';
 import preferences from '../modules/preferences';
 import '../styles/content.css';
 import Sidebar from './sidebar';
@@ -51,9 +52,28 @@ const NavBar = (() => {
     };
 })();
 
+const SectionHeader = (containerID: string) => {
+    const element = document.createElement('div');
+    element.className = 'section-header';
+    element.id = containerID;
+
+    const header = document.createElement('div');
+    header.classList.add('header');
+    element.appendChild(header);
+
+    function setName(name: string) {
+        header.innerText = name;
+    }
+
+    return {
+        element,
+        setName,
+    };
+};
+
 const WeekDisplay = (() => {
     const element = document.createElement('div');
-    element.classList.add('weekdisplay');
+    element.className = 'week-display';
 
     function CreateCard() {
         const Card = document.createElement('div');
@@ -128,13 +148,57 @@ const WeekDisplay = (() => {
     };
 })();
 
+const TodayDisplay = (() => {
+    const element = document.createElement('div');
+    element.className = 'today-display';
+
+    function CreateCard() {
+        const Card = document.createElement('div');
+        Card.classList.add('card');
+
+        const Title = document.createElement('div');
+        Card.appendChild(Title);
+
+        const Item = document.createElement('div');
+        Item.className = 'item';
+        Card.appendChild(Item);
+
+        return Card;
+    }
+
+    let Cards: HTMLElement[] = [];
+    for (let i = 0; i < 6; i++) {
+        let card = CreateCard();
+        Cards.push(card);
+        element.appendChild(card);
+    }
+
+    const progressBar = ProgressBar();
+    progressBar.setProgress(10);
+    Cards[0].children[1].appendChild(progressBar.element);
+
+    return {
+        element,
+    };
+})();
+
 const Content = (() => {
     function UpdateContent() {}
 
     const element = document.createElement('div');
     element.id = 'main';
+
+    const WeekHeader = SectionHeader('week-header');
+    WeekHeader.setName('Extended Forecast');
+
+    const TodayHeader = SectionHeader('today-header');
+    TodayHeader.setName("Today's Highlights");
+
     element.appendChild(NavBar.element);
+    element.appendChild(WeekHeader.element);
     element.appendChild(WeekDisplay.element);
+    element.appendChild(TodayHeader.element);
+    element.appendChild(TodayDisplay.element);
 
     return {
         element,

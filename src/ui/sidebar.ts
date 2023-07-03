@@ -15,13 +15,7 @@ export async function submitSearch(name: string) {
     UpdatePreferenceInfo();
     content.WeekDisplay.UpdateWeekDisplay();
 
-    Sidebar.UpdateSidebar(
-        `${currentLocationInfo.Location.name}, ${
-            currentLocationInfo.Location.region
-                ? currentLocationInfo.Location.region
-                : currentLocationInfo.Location.country
-        }`
-    );
+    Sidebar.UpdateSidebar();
     console.log(locationInfo);
 }
 
@@ -160,9 +154,15 @@ const CityDisplay = (() => {
 })();
 
 const Sidebar = (() => {
-    function UpdateSidebar(location?: string) {
+    function UpdateSidebar() {
         DisplayCard.UpdateDisplayCard();
-        if (location) CityDisplay.UpdateImage(location);
+        CityDisplay.UpdateImage(
+            `${currentLocationInfo.Location.name}, ${
+                currentLocationInfo.Location.region
+                    ? currentLocationInfo.Location.region
+                    : currentLocationInfo.Location.country
+            }`
+        );
     }
 
     const element = document.createElement('div');
