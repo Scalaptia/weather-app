@@ -16,6 +16,7 @@ export async function submitSearch(name: string) {
     content.WeekDisplay.UpdateWeekDisplay();
 
     Sidebar.UpdateSidebar();
+    content.Content.UpdateContent();
     console.log(locationInfo);
 }
 

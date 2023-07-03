@@ -1,4 +1,5 @@
 import { weatherAPI } from '../modules/api';
+import { ProgressBar } from '../modules/components';
 import preferences from '../modules/preferences';
 import '../styles/content.css';
 import Sidebar from './sidebar';
@@ -41,7 +42,7 @@ const NavBar = (() => {
 
         element.classList.add('selected');
         Sidebar.UpdateSidebar();
-        WeekDisplay.UpdateWeekDisplay();
+        Content.UpdateContent();
     }
 
     element.appendChild(temperatureButtons);
@@ -174,8 +175,8 @@ const TodayDisplay = (() => {
     }
 
     Cards[0].children[0].innerHTML = 'UV Index';
-    // const progressBar =
-    // Cards[0].children[1].appendChild(progressBar);
+    const progressBar = ProgressBar(11);
+    Cards[0].children[1].appendChild(progressBar.element);
 
     Cards[1].children[0].innerHTML = 'Wind Status';
 
@@ -183,13 +184,22 @@ const TodayDisplay = (() => {
 
     Cards[3].children[0].innerHTML = 'Visibility';
 
+    function UpdateTodayDisplay() {
+        const info = weatherAPI.activeLocationInfo;
+        progressBar.setValue(info!.day2LocationInfo.UV!);
+    }
+
     return {
         element,
+        UpdateTodayDisplay,
     };
 })();
 
 const Content = (() => {
-    function UpdateContent() {}
+    function UpdateContent() {
+        WeekDisplay.UpdateWeekDisplay();
+        TodayDisplay.UpdateTodayDisplay();
+    }
 
     const element = document.createElement('div');
     element.id = 'main';

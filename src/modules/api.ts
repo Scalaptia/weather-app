@@ -22,6 +22,7 @@ export const weatherAPI = (() => {
     // Parse JSON for important information
     async function getLocationInfo(loc: string) {
         const info = await getData(loc);
+        console.log(info);
         const date = new Date(info.current.last_updated);
 
         const currentLocationInfo: CurrentInfo = {
@@ -65,6 +66,7 @@ export const weatherAPI = (() => {
                     text: obj.day.condition.text,
                     icon: obj.day.condition.icon,
                 },
+                UV: obj.day.uv,
             };
         }
 

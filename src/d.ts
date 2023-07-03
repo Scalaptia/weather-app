@@ -36,6 +36,7 @@ interface DayInfo {
         text: string;
         icon: string;
     };
+    UV: number;
 }
 
 interface LocationInfo {

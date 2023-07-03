@@ -131,9 +131,8 @@
     color: rgba(var(--text-color), 0.9);
 }
 
-/* UV Index */
-sl-progress-ring {
-    --track-width: 6px;
-    --indicator-width: 12px;
-    --indicator-color: #5297dc;
+.card > .item {
+    display: flex;
+    width: 80%;
+    height: 80%;
 }
