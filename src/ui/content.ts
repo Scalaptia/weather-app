@@ -1,5 +1,5 @@
 import { weatherAPI } from '../modules/api';
-import { ProgressBar } from '../modules/components';
+import { ProgressBar, StatusCard } from '../modules/components';
 import preferences from '../modules/preferences';
 import '../styles/content.css';
 import Sidebar from './sidebar';
@@ -180,19 +180,28 @@ const TodayDisplay = (() => {
     Cards[0].children[1].appendChild(UVProgressBar.element);
 
     Cards[1].children[0].innerHTML = 'Wind Status';
+    const WindStatus = StatusCard('wind-status');
+    Cards[1].children[1].appendChild(WindStatus.element);
 
     Cards[2].children[0].innerHTML = 'Cloudiness';
     const CloudProgressBar = ProgressBar(100, '%');
     Cards[2].children[1].appendChild(CloudProgressBar.element);
 
     Cards[3].children[0].innerHTML = 'Visibility';
+    const VisibilityStatus = StatusCard('visibility-status');
+    Cards[3].children[1].appendChild(VisibilityStatus.element);
 
     function UpdateTodayDisplay() {
         const info = weatherAPI.activeLocationInfo;
         const currentDay = 'day2LocationInfo' as keyof DayInfo[];
         const currentDayInfo = info!.days[currentDay] as DayInfo;
         UVProgressBar.setValue(currentDayInfo.UV);
+        WindStatus.setValue(info!.currentLocationInfo.Wind.kph, 'km/h');
         CloudProgressBar.setValue(info!.currentLocationInfo.Cloud);
+        VisibilityStatus.setValue(
+            info!.currentLocationInfo.Visibility.km,
+            'km'
+        );
     }
 
     return {

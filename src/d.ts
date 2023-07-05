@@ -19,6 +19,10 @@ interface CurrentInfo {
     };
     Humidity: number;
     Cloud: number;
+    Visibility: {
+        km: number;
+        miles: number;
+    };
     Updated: Date;
 }
 

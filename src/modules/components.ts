@@ -43,6 +43,28 @@ const ProgressBar = (maxValue: number, symbol?: string) => {
     };
 };
 
-// const StatusCard = () {}
+const StatusCard = (ID: string) => {
+    const element = document.createElement('div');
+    element.id = ID;
+    element.className = 'status-card';
 
-export { ProgressBar };
+    const valContainer = document.createElement('div');
+    element.appendChild(valContainer);
+
+    const val = document.createElement('div');
+    valContainer.appendChild(val);
+    const valUnit = document.createElement('div');
+    valContainer.appendChild(valUnit);
+
+    function setValue(value: number, unit: string) {
+        val.innerText = value.toString();
+        valUnit.innerText = unit;
+    }
+
+    return {
+        element,
+        setValue,
+    };
+};
+
+export { ProgressBar, StatusCard };
