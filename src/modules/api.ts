@@ -74,25 +74,16 @@ export const weatherAPI = (() => {
         info.forecast.forecastday.forEach((day: Object) => {
             daysLocationInfo.push(createDayInfo(day));
         });
-        const [
-            day1LocationInfo,
-            day2LocationInfo,
-            day3LocationInfo,
-            day4LocationInfo,
-            day5LocationInfo,
-            day6LocationInfo,
-            day7LocationInfo,
-        ] = daysLocationInfo;
+
+        const days: { [key: string]: any } = {};
+        daysLocationInfo.forEach((location, index) => {
+            const variableName = `day${index + 1}LocationInfo`;
+            days[variableName] = location;
+        });
 
         return {
             currentLocationInfo,
-            day1LocationInfo,
-            day2LocationInfo,
-            day3LocationInfo,
-            day4LocationInfo,
-            day5LocationInfo,
-            day6LocationInfo,
-            day7LocationInfo,
+            days,
         };
     }
 

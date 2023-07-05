@@ -41,11 +41,5 @@ interface DayInfo {
 
 interface LocationInfo {
     currentLocationInfo: CurrentInfo;
-    day1LocationInfo: DayInfo;
-    day2LocationInfo: DayInfo;
-    day3LocationInfo: DayInfo;
-    day4LocationInfo: DayInfo;
-    day5LocationInfo: DayInfo;
-    day6LocationInfo: DayInfo;
-    day7LocationInfo: DayInfo;
+    days: DayInfo[];
 }

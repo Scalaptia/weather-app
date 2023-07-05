@@ -105,10 +105,11 @@ const WeekDisplay = (() => {
 
     function UpdateWeekDisplay() {
         const info = weatherAPI.activeLocationInfo;
-        for (let i = 0; i <= 6; i++) {
+
+        for (let i = 0; i < Object.keys(info!.days as Object).length; i++) {
             let card = weekCards[i];
-            let propertyName = `day${i + 1}LocationInfo` as keyof LocationInfo;
-            let dayInfo = info![propertyName] as DayInfo;
+            let propertyName = `day${i + 1}LocationInfo` as keyof DayInfo[];
+            let dayInfo = info!.days[propertyName] as DayInfo;
 
             const DayName = card.children[0] as HTMLDivElement;
             const DayIcon = card.children[1] as HTMLImageElement;
@@ -188,7 +189,9 @@ const TodayDisplay = (() => {
 
     function UpdateTodayDisplay() {
         const info = weatherAPI.activeLocationInfo;
-        UVProgressBar.setValue(info!.day2LocationInfo.UV!);
+        const currentDay = 'day2LocationInfo' as keyof DayInfo[];
+        const currentDayInfo = info!.days[currentDay] as DayInfo;
+        UVProgressBar.setValue(currentDayInfo.UV);
         CloudProgressBar.setValue(info!.currentLocationInfo.Cloud);
     }
 

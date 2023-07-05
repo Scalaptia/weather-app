@@ -8,7 +8,9 @@ let locationInfo: LocationInfo;
 let currentLocationInfo: CurrentInfo;
 
 export async function submitSearch(name: string) {
-    weatherAPI.activeLocationInfo = await weatherAPI.getLocationInfo(name);
+    weatherAPI.activeLocationInfo = (await weatherAPI.getLocationInfo(
+        name
+    )) as LocationInfo;
     locationInfo = weatherAPI.activeLocationInfo;
     currentLocationInfo = locationInfo.currentLocationInfo;
 
