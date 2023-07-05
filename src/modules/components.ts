@@ -43,4 +43,6 @@ const ProgressBar = (maxValue: number, symbol?: string) => {
     };
 };
 
+// const StatusCard = () {}
+
 export { ProgressBar };

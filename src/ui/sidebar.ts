@@ -72,7 +72,7 @@ const DisplayCard = (() => {
             hourOptions
         );
 
-        StatusText.innerText = `${currentLocationInfo.Condition.text} skies`;
+        StatusText.innerText = currentLocationInfo.Condition.text;
         HumidityText.innerText = `${currentLocationInfo.Humidity}% Humidity`;
     }
 

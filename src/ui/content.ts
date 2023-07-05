@@ -180,7 +180,7 @@ const TodayDisplay = (() => {
 
     Cards[1].children[0].innerHTML = 'Wind Status';
 
-    Cards[2].children[0].innerHTML = 'Cloud';
+    Cards[2].children[0].innerHTML = 'Cloudiness';
     const CloudProgressBar = ProgressBar(100, '%');
     Cards[2].children[1].appendChild(CloudProgressBar.element);
 
