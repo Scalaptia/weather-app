@@ -56,9 +56,27 @@ const StatusCard = (ID: string) => {
     const valUnit = document.createElement('div');
     valContainer.appendChild(valUnit);
 
-    function setValue(value: number, unit: string) {
+    const msgContainer = document.createElement('div');
+    element.appendChild(msgContainer);
+
+    const msg = document.createElement('div');
+    msgContainer.appendChild(msg);
+    let msgIcon = document.createElement('img');
+    msgContainer.appendChild(msgIcon);
+
+    function setValue(
+        value: number,
+        unit: string,
+        message: string,
+        icon?: SVGElement
+    ) {
         val.innerText = value.toString();
         valUnit.innerText = unit;
+        msg.innerText = message;
+        if (icon) {
+            msgIcon.innerHTML = '';
+            msgIcon.appendChild(icon);
+        }
     }
 
     return {

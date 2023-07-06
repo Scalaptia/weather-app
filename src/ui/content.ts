@@ -196,11 +196,16 @@ const TodayDisplay = (() => {
         const currentDay = 'day2LocationInfo' as keyof DayInfo[];
         const currentDayInfo = info!.days[currentDay] as DayInfo;
         UVProgressBar.setValue(currentDayInfo.UV);
-        WindStatus.setValue(info!.currentLocationInfo.Wind.kph, 'km/h');
+        WindStatus.setValue(
+            info!.currentLocationInfo.Wind.kph,
+            'km/h',
+            info!.currentLocationInfo.Wind.direction
+        );
         CloudProgressBar.setValue(info!.currentLocationInfo.Cloud);
         VisibilityStatus.setValue(
             info!.currentLocationInfo.Visibility.km,
-            'km'
+            'km',
+            'Good Visibility'
         );
     }
 

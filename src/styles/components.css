@@ -26,3 +26,37 @@
     font-weight: 600;
     font-size: 18px;
 }
+
+/* Status Card */
+.status-card {
+    display: flex;
+    align-self: center;
+    height: 100%;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    padding-bottom: 2rem;
+}
+
+.status-card > div:first-child {
+    height: 3rem;
+    display: flex;
+    align-items: end;
+    gap: 0.4rem;
+    padding-bottom: 0.3rem;
+}
+
+.status-card > div:first-child > div:first-child {
+    font-size: 2rem;
+}
+
+.status-card > div:first-child > div:last-child {
+    font-size: 1.1rem;
+    padding-bottom: 0.3rem;
+}
+
+.status-card > div:last-child {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
