@@ -61,7 +61,7 @@ const StatusCard = (ID: string) => {
 
     const msg = document.createElement('div');
     msgContainer.appendChild(msg);
-    let msgIcon = document.createElement('img');
+    let msgIcon = document.createElement('div');
     msgContainer.appendChild(msgIcon);
 
     function setValue(

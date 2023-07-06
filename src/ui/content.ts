@@ -1,3 +1,14 @@
+import {
+    ArrowDown,
+    ArrowDownLeft,
+    ArrowDownRight,
+    ArrowLeft,
+    ArrowRight,
+    ArrowUp,
+    ArrowUpLeft,
+    ArrowUpRight,
+    createElement,
+} from 'lucide';
 import { weatherAPI } from '../modules/api';
 import { ProgressBar, StatusCard } from '../modules/components';
 import preferences from '../modules/preferences';
@@ -191,15 +202,69 @@ const TodayDisplay = (() => {
     const VisibilityStatus = StatusCard('visibility-status');
     Cards[3].children[1].appendChild(VisibilityStatus.element);
 
+    function getWindMessage(windDirectionCode: string) {
+        const windDirections: WindDirectionMapping = {
+            N: 'North',
+            NNE: 'North-Northeast',
+            NE: 'Northeast',
+            ENE: 'East-Northeast',
+            E: 'East',
+            ESE: 'East-Southeast',
+            SE: 'Southeast',
+            SSE: 'South-Southeast',
+            S: 'South',
+            SSW: 'South-Southwest',
+            SW: 'Southwest',
+            WSW: 'West-Southwest',
+            W: 'West',
+            WNW: 'West-Northwest',
+            NW: 'Northwest',
+            NNW: 'North-Northwest',
+        };
+
+        const windDirectionIcons: WindIcons = {
+            N: createElement(ArrowUp),
+            NNE: createElement(ArrowUpRight),
+            NE: createElement(ArrowUpRight),
+            ENE: createElement(ArrowUpRight),
+            E: createElement(ArrowRight),
+            ESE: createElement(ArrowDownRight),
+            SE: createElement(ArrowDownRight),
+            SSE: createElement(ArrowDownRight),
+            S: createElement(ArrowDown),
+            SSW: createElement(ArrowDownLeft),
+            SW: createElement(ArrowDownLeft),
+            WSW: createElement(ArrowDownLeft),
+            W: createElement(ArrowLeft),
+            WNW: createElement(ArrowUpLeft),
+            NW: createElement(ArrowUpLeft),
+            NNW: createElement(ArrowUpLeft),
+        };
+
+        const name = windDirections[windDirectionCode];
+        const icon = windDirectionIcons[windDirectionCode];
+
+        return {
+            name,
+            icon,
+        };
+    }
+
     function UpdateTodayDisplay() {
         const info = weatherAPI.activeLocationInfo;
         const currentDay = 'day2LocationInfo' as keyof DayInfo[];
         const currentDayInfo = info!.days[currentDay] as DayInfo;
+
+        const windMessage = getWindMessage(
+            info!.currentLocationInfo.Wind.direction
+        );
+
         UVProgressBar.setValue(currentDayInfo.UV);
         WindStatus.setValue(
             info!.currentLocationInfo.Wind.kph,
             'km/h',
-            info!.currentLocationInfo.Wind.direction
+            windMessage.name,
+            windMessage.icon
         );
         CloudProgressBar.setValue(info!.currentLocationInfo.Cloud);
         VisibilityStatus.setValue(

@@ -47,3 +47,11 @@ interface LocationInfo {
     currentLocationInfo: CurrentInfo;
     days: DayInfo[];
 }
+
+interface WindDirectionMapping {
+    [directionCode: string]: string;
+}
+
+interface WindIcons {
+    [directionCode: string]: SVGElement;
+}
