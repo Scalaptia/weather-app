@@ -266,6 +266,7 @@ const TodayDisplay = (() => {
             windMessage.name,
             windMessage.icon
         );
+
         CloudProgressBar.setValue(info!.currentLocationInfo.Cloud);
         VisibilityStatus.setValue(
             info!.currentLocationInfo.Visibility.km,
