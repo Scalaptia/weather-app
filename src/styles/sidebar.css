@@ -128,7 +128,7 @@
     height: 10rem;
     overflow: hidden;
     margin-top: auto;
-    bottom: 2rem;
+    bottom: 1rem;
     display: grid;
 }
 
@@ -186,6 +186,6 @@
     }
 
     .citydisplay {
-        bottom: 4rem;
+        bottom: 3rem;
     }
 }

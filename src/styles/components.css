@@ -27,6 +27,12 @@
     font-size: 18px;
 }
 
+@media only screen and (max-width: 768px) {
+    .bar {
+        width: 80%;
+    }
+}
+
 /* Status Card */
 .status-card {
     display: flex;
@@ -66,4 +72,13 @@
     padding-top: 5px;
     width: 1.5rem;
     height: 1.5rem;
+}
+
+@media only screen and (max-width: 768px) {
+    .status-card {
+        text-align: center;
+        gap: 1rem;
+        padding: 0;
+        flex-direction: column;
+    }
 }

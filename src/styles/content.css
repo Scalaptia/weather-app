@@ -62,9 +62,9 @@
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 1rem;
-    width: clamp(100%, 100%, 100rem);
-    max-width: 80rem;
-    padding-bottom: 3rem;
+    width: clamp(100%, 100%, 80rem);
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
 }
 
 .daycard {
@@ -104,9 +104,8 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
-    width: clamp(100%, 100%, 100rem);
+    width: clamp(100%, 100%, 80rem);
     padding-bottom: 3rem;
-    max-width: 80rem;
 }
 
 .today-display > .card {
@@ -135,4 +134,30 @@
     display: flex;
     width: 80%;
     height: 80%;
+}
+
+@media only screen and (max-width: 768px) {
+    #main {
+        padding: 1rem;
+    }
+
+    .week-display {
+        gap: 1.5rem;
+        overflow-x: scroll;
+        white-space: nowrap;
+    }
+
+    .daycard {
+        padding: 5px;
+    }
+
+    .today-display > .card {
+        min-width: 0px;
+    }
+
+    .card-title {
+        padding: 0;
+        padding-bottom: 1rem;
+        text-align: center;
+    }
 }
