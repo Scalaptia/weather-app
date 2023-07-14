@@ -19,7 +19,6 @@ export async function submitSearch(name: string) {
 
     Sidebar.UpdateSidebar();
     content.Content.UpdateContent();
-    console.log(locationInfo);
 }
 
 function UpdatePreferenceInfo() {
