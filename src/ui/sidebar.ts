@@ -101,7 +101,7 @@ const DisplayCard = (() => {
     Card.appendChild(Time);
 
     const Condition = document.createElement('div');
-    Condition.classList.add('Condition');
+    Condition.classList.add('condition');
 
     const Status = document.createElement('div');
     Status.classList.add('status');

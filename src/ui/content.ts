@@ -262,26 +262,23 @@ const TodayDisplay = (() => {
         const currentDay = 'day2LocationInfo' as keyof DayInfo[];
         const currentDayInfo = info!.days[currentDay] as DayInfo;
 
-        const windMessage = getWindMessage(
-            info!.currentLocationInfo.Wind.direction
-        );
+        const windKPH = info!.currentLocationInfo.Wind.kph;
+        const windDirection = info!.currentLocationInfo.Wind.direction;
+        const windMessage = getWindMessage(windDirection);
 
         UVProgressBar.setValue(currentDayInfo.UV);
         WindStatus.setValue(
-            info!.currentLocationInfo.Wind.kph,
+            windKPH,
             'km/h',
             windMessage.name,
             windMessage.icon
         );
 
         const visibility = info!.currentLocationInfo.Visibility.km;
+        const visibilityMessage = getVisibilityMessage(visibility)!;
 
         CloudProgressBar.setValue(info!.currentLocationInfo.Cloud);
-        VisibilityStatus.setValue(
-            visibility,
-            'km',
-            getVisibilityMessage(visibility)!
-        );
+        VisibilityStatus.setValue(visibility, 'km', visibilityMessage);
     }
 
     return {

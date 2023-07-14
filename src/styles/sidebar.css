@@ -1,17 +1,17 @@
 #sidebar {
-    padding: 1rem;
     height: 100vh;
     background-color: rgba(var(--background-color));
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    overflow: hidden;
 }
 
 /* Search Bar */
 .searchbar {
+    padding: 1rem;
     display: flex;
     height: 40px;
-    width: 100%;
     justify-content: center;
     gap: 10px;
 }
@@ -41,7 +41,7 @@
 .searchbar > input {
     border: none;
     outline: none;
-    font-size: 16px;
+    font-size: 1rem;
     padding: 20px;
     background-color: rgba(var(--foreground-color));
     width: 100%;
@@ -128,7 +128,7 @@
     height: 10rem;
     overflow: hidden;
     margin-top: auto;
-    margin-bottom: 2rem;
+    bottom: 2rem;
     display: grid;
 }
 
@@ -155,4 +155,37 @@
 .citytext:hover {
     cursor: pointer;
     background-color: rgba(0, 0, 0, 0.6);
+}
+
+@media only screen and (max-width: 768px) {
+    #sidebar {
+        gap: 0;
+    }
+
+    .displaycard > * {
+        justify-content: center;
+    }
+
+    .displaycard > img {
+        width: 10rem;
+    }
+
+    .time {
+        padding: 1rem;
+    }
+
+    .condition {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .condition > div {
+        padding: 0;
+        padding-top: 1rem;
+    }
+
+    .citydisplay {
+        bottom: 4rem;
+    }
 }
