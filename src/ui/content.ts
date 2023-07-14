@@ -250,6 +250,13 @@ const TodayDisplay = (() => {
         };
     }
 
+    function getVisibilityMessage(visibility: number) {
+        if (visibility >= 10) return 'Good visibility';
+        if (visibility >= 5) return 'Moderate visibility';
+        if (visibility >= 1) return 'Poor visibility';
+        if (visibility < 1) return 'Very poor visibility';
+    }
+
     function UpdateTodayDisplay() {
         const info = weatherAPI.activeLocationInfo;
         const currentDay = 'day2LocationInfo' as keyof DayInfo[];
@@ -267,11 +274,13 @@ const TodayDisplay = (() => {
             windMessage.icon
         );
 
+        const visibility = info!.currentLocationInfo.Visibility.km;
+
         CloudProgressBar.setValue(info!.currentLocationInfo.Cloud);
         VisibilityStatus.setValue(
-            info!.currentLocationInfo.Visibility.km,
+            visibility,
             'km',
-            'Good Visibility'
+            getVisibilityMessage(visibility)!
         );
     }
 
