@@ -2,7 +2,7 @@ export const weatherAPI = (() => {
     async function getData(location: string) {
         // const apiKey = '150da6ac985e48f8b6715206232106';
         const apiKey = 'd6e2d38aa0a94271818194039230507';
-        const url = `http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${location}&days=7&aqi=no&alerts=no`;
+        const url = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${location}&days=7&aqi=no&alerts=no`;
 
         try {
             const response = await fetch(url, { mode: 'cors' });
