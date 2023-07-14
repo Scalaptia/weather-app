@@ -63,6 +63,7 @@
     grid-template-columns: repeat(7, 1fr);
     gap: 1rem;
     width: clamp(100%, 100%, 80rem);
+    max-width: 80rem;
     padding-bottom: 1rem;
     margin-bottom: 2rem;
 }
@@ -105,6 +106,7 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
     width: clamp(100%, 100%, 80rem);
+    max-width: 80rem;
     padding-bottom: 3rem;
 }
 
